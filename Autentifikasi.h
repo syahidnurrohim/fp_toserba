@@ -8,7 +8,7 @@ namespace Autentifikasi
 
     int login(int privil)
     {
-        int flag;
+        int flag = 0;
         char ch1, ch2;
 
         string temp1;

@@ -1,6 +1,5 @@
 namespace Barang
 {
-
 /* ** Waktu ** */
 #define DTTMFMT "%Y-%m-%d %H:%M:%S "
 #define DTTMSZ 21
@@ -12,15 +11,16 @@ namespace Barang
         return buff;
     }
 
-    char dbBarang[30] = "dbBarang.dat";
+    char dbBarang[30] = "Barang.dat";
 
     void input()
     {
         cout << "ID          : ";
         cin >> barang.ID_barang;
         cout << "Nama        : ";
-        cin.ignore();
-        getline(cin, barang.nama);
+        cin >> barang.nama;
+        // cin.ignore();
+        // getline(cin, barang.nama);
         cout << "Harga       : ";
         cin >> barang.harga;
         cout << "Stock       : ";
@@ -107,41 +107,6 @@ namespace Barang
         update.close();
     }
 
-    void search(int ID_barang_cari)
-    {
-        bool ktemu = false;
-
-        ifstream search;
-        search.open(dbBarang, ios ::binary);
-        while (search.read((char *)&barang, sizeof(barang)))
-        {
-            // keadaan jika barang ditemukan
-            if (barang.ID_barang == ID_barang_cari)
-            {
-                tBarang = barang;
-                ktemu = true;
-                break; // stop looping
-            }
-        }
-        if (ktemu)
-        { // eksekusi ketika barang ditemukan
-            cout << "+-----+--------------------+------------+----------+--------------+\n";
-            cout << "|   ID"
-                 << "|                Nama"
-                 << "|       Harga"
-                 << "|     Stock"
-                 << "|   Kedaluwarsa|" << endl;
-            cout << "+-----+--------------------+------------+----------+--------------+\n";
-            output();
-            cout << "+-----+--------------------+------------+----------+--------------+\n";
-        }
-        else
-        {
-            cout << "\nID barang " << ID_barang_cari << " tidak ditemukan.\n";
-        }
-        search.close();
-    }
-
     void destroy(int ID_barang_dihapus)
     {
         ifstream destroy;
@@ -185,6 +150,41 @@ namespace Barang
 
         remove(dbBarang);
         rename("temp.txt", dbBarang);
+    }
+
+    void search(int ID_barang_cari)
+    {
+        bool ktemu = false;
+
+        ifstream search;
+        search.open(dbBarang, ios ::binary);
+        while (search.read((char *)&barang, sizeof(barang)))
+        {
+            // keadaan jika barang ditemukan
+            if (barang.ID_barang == ID_barang_cari)
+            {
+                tBarang = barang;
+                ktemu = true;
+                break; // stop looping
+            }
+        }
+        if (ktemu)
+        { // eksekusi ketika barang ditemukan
+            cout << "+-----+--------------------+------------+----------+--------------+\n";
+            cout << "|   ID"
+                 << "|                Nama"
+                 << "|       Harga"
+                 << "|     Stock"
+                 << "|   Kedaluwarsa|" << endl;
+            cout << "+-----+--------------------+------------+----------+--------------+\n";
+            output();
+            cout << "+-----+--------------------+------------+----------+--------------+\n";
+        }
+        else
+        {
+            cout << "\nID barang " << ID_barang_cari << " tidak ditemukan.\n";
+        }
+        search.close();
     }
 
     void sale(int ID_barang_dijual)
@@ -231,21 +231,25 @@ namespace Barang
                         // assign data barang lama ke temporary
                         unsigned int temp, temp2;
                         double temp3;
-                        string temp4, temp5;
+                        char temp4[255], temp5[255];
                         temp = barang.ID_barang;
-                        temp4 = barang.nama;
+                        // temp4 = barang.nama;
+                        strcpy(temp4, barang.nama);
                         temp3 = barang.harga;
                         temp2 = barang.stock - jumlah;
-                        temp5 = barang.tExpired;
+                        // temp5 = barang.tExpired;
+                        strcpy(temp5, barang.tExpired);
 
                         destroy(ID_barang_dijual); // data barang lama dihapus
 
                         // assign data untuk struk dan menulis kembali ke barang.dat
                         barang.ID_barang = temp;
-                        barang.nama = temp4;
+                        strcpy(temp4, barang.nama);
+                        // barang.nama = temp4;
                         barang.harga = temp3;
                         barang.stock = temp2;
-                        barang.tExpired = temp5;
+                        strcpy(temp5, barang.tExpired);
+                        // barang.tExpired = temp5;
                         harga_jenis = barang.harga * jumlah;
 
                         int pos = -1 * (int)sizeof(barang);
