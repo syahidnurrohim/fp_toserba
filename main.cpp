@@ -7,10 +7,105 @@
 
 using namespace std;
 
-#include "admin.h"
-#include "barang.h"
-#include "pegawai.h"
-#include "login.h"
+struct toko
+{
+	int ID_barang, stock;
+	long no_id, tPemasukan;
+	double harga;
+	string nama, tExpired, alamat, username, password;
+} barang, tBarang, uAdmin, uPegawai;
+
+#include "Barang.h"
+#include "Admin.h"
+#include "Pegawai.h"
+#include "Autentifikasi.h"
+
+int registrasi()
+{
+	Admin::create();
+	return 0;
+}
+
+int login(int privil)
+{
+	int flag;
+	char ch1, ch2;
+
+	string temp1;
+	string temp2;
+
+	if (privil == 1)
+	{
+		cout << "Username: ";
+		cin >> temp1;
+
+		cout << "Password: ";
+		ch2 = _getch();
+		while (ch2 != 13)
+		{
+			temp2.push_back(ch2);
+			cout << "*";
+			ch2 = _getch();
+		}
+		ifstream fadm2;
+		fadm2.open(Admin::dbAdmin, ios::binary);
+		while (fadm2.read((char *)&uAdmin, sizeof(uAdmin)))
+		{
+			if (temp1 == uAdmin.username && temp2 == uAdmin.password)
+			{
+				cout << "\nAnda berhasil login.\n";
+				flag = 1;
+				return 1;
+				break; // keluar dari loop
+			}
+		}
+		if (flag != 1)
+		{
+			cout << "\nMaaf username atau password yang Anda masukkan salah.\n";
+		}
+	}
+	else if (privil == 2)
+	{
+		cout << "Username: ";
+		cin >> temp1;
+
+		cout << "Password: ";
+		ch2 = _getch();
+		while (ch2 != 13)
+		{
+			temp2.push_back(ch2);
+			cout << "*";
+			ch2 = _getch();
+		}
+
+		ifstream fpg2;
+		fpg2.open(Pegawai::dbPegawai, ios ::binary);
+		while (fpg2.read((char *)&uPegawai, sizeof(uPegawai)))
+		{
+			if (temp1 == uPegawai.username && temp2 == uPegawai.password)
+			{
+				cout << "\nAnda berhasil login.\n";
+				return 2;
+				flag = 1;
+				break; // keluar dari loop
+			}
+		}
+		if (flag != 1)
+		{
+			cout << "\nMaaf username atau password yang Anda masukkan salah.\n";
+		}
+	}
+	else if (privil == 3)
+	{
+		return 3;
+	}
+	else
+	{
+		return 5;
+	}
+
+	return -1;
+}
 
 int main()
 {
@@ -18,11 +113,11 @@ int main()
 	status1 = 0;
 	while (status1 == 0)
 	{ // menu awal
-		cout << "\nLogin Sebagai\n1.Admin\n2.Pegawai\n3.Batal\n";
+		cout << "\nLogin Sebagai\n1.Admin\n2.Pegawai\n3.Register\n4.Batal\n";
 		cout << "Masukkan pilihan: ";
 		cin >> pil;
 		status2 = 1;
-		switch (Login(pil))
+		switch (login(pil))
 		{
 		case 1:
 			cout << "\n\t\tTOKO SERBA ADA";
@@ -44,26 +139,26 @@ int main()
 						switch (pil3)
 						{
 						case 1:
-							bacaDataBarang();
+							Barang::show();
 							break;
 						case 2:
 							cout << "Silahkan masukkan data barang.\n";
-							simpanDataBarang();
+							Barang::create();
 							break;
 						case 3:
 							cout << "Masukkan ID barang diperbarui: ";
 							cin >> i;
-							perbaruiDataBarang(i);
+							Barang::update(i);
 							break;
 						case 4:
 							cout << "Masukkan ID barang dicari: ";
 							cin >> i;
-							cariBarang(i);
+							Barang::search(i);
 							break;
 						case 5:
 							cout << "Masukkan ID barang dihapus: ";
 							cin >> i;
-							hapusDataBarang(i);
+							Barang::destroy(i);
 							break;
 						case 6:
 							status3 = 1;
@@ -84,16 +179,16 @@ int main()
 						switch (pil)
 						{
 						case 1:
-							bacaDataAdmin();
+							Admin::show();
 							break;
 						case 2:
 							cout << "Silahkan masukkan data Admin.\n";
-							simpanDataAdmin();
+							Admin::create();
 							break;
 						case 3:
 							cout << "Masukkan No. Identitas Admin dihapus: ";
 							cin >> i;
-							hapusDataAdmin(i);
+							Admin::destroy(i);
 						case 4:
 							status3 = 1;
 							break;
@@ -113,21 +208,21 @@ int main()
 						switch (pil)
 						{
 						case 1:
-							bacaPegawai();
+							Pegawai::show();
 							break;
 						case 2:
 							cout << "Silahkan masukkan data Pegawai.\n";
-							simpanPegawai();
+							Pegawai::create();
 							break;
 						case 3:
 							cout << "Masukkan No. Identitas Pegawai diperbarui: ";
 							cin >> i;
-							perbaruiDataPegawai(i);
+							Pegawai::update(i);
 							break;
 						case 4:
 							cout << "Masukkan No. Identitas Pegawai dihapus: ";
 							cin >> i;
-							hapusDataPegawai(i);
+							Pegawai::destroy(i);
 							break;
 						case 5:
 							status3 = 1;
@@ -159,10 +254,10 @@ int main()
 				switch (pil)
 				{
 				case 1:
-					bacaDataBarang();
+					Barang::show();
 					break;
 				case 2:
-					Jual(13);
+					Barang::sale(13);
 					break;
 				case 3:
 					cout << "Logging out\n";
@@ -175,6 +270,9 @@ int main()
 			}
 			break;
 		case 3:
+			registrasi();
+			break;
+		case 4:
 			status1 = 1;
 			cout << "Keluar...\n";
 			break;
