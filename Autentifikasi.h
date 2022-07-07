@@ -11,19 +11,19 @@ namespace Autentifikasi
         int flag = 0;
         char ch1, ch2;
 
-        string temp1;
-        string temp2;
+        string username;
+        string password;
 
         if (privil == 1)
         {
             cout << "Username: ";
-            cin >> temp1;
+            cin >> username;
 
             cout << "Password: ";
             ch2 = _getch();
             while (ch2 != 13)
             {
-                temp2.push_back(ch2);
+                password.push_back(ch2);
                 cout << "*";
                 ch2 = _getch();
             }
@@ -31,7 +31,7 @@ namespace Autentifikasi
             fadm2.open(Admin::dbAdmin, ios::binary);
             while (fadm2.read((char *)&uAdmin, sizeof(uAdmin)))
             {
-                if (temp1 == uAdmin.username && temp2 == uAdmin.password)
+                if (username == uAdmin.username && password == uAdmin.password)
                 {
                     cout << "\nAnda berhasil login.\n";
                     flag = 1;
@@ -47,13 +47,13 @@ namespace Autentifikasi
         else if (privil == 2)
         {
             cout << "Username: ";
-            cin >> temp1;
+            cin >> username;
 
             cout << "Password: ";
             ch2 = _getch();
             while (ch2 != 13)
             {
-                temp2.push_back(ch2);
+                password.push_back(ch2);
                 cout << "*";
                 ch2 = _getch();
             }
@@ -62,7 +62,7 @@ namespace Autentifikasi
             fpg2.open(Pegawai::dbPegawai, ios ::binary);
             while (fpg2.read((char *)&uPegawai, sizeof(uPegawai)))
             {
-                if (temp1 == uPegawai.username && temp2 == uPegawai.password)
+                if (username == uPegawai.username && password == uPegawai.password)
                 {
                     cout << "\nAnda berhasil login.\n";
                     return 2;

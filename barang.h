@@ -11,7 +11,7 @@ namespace Barang
         return buff;
     }
 
-    char dbBarang[30] = "Barang.dat";
+    char dbBarang[30] = "barang.dat";
 
     void input()
     {
@@ -192,8 +192,8 @@ namespace Barang
         fstream sale; // baca/tulis file langsung
         sale.open(dbBarang, ios ::in | ios ::out);
         // ganti ke address folder masing"
-        ofstream struk("D:\\TUGAS\\DASPROG\\MINGGU UAS\\TUBES_toserba\\struk.txt", ios::trunc); // overwrite
-        ofstream trx("D:\\TUGAS\\DASPROG\\MINGGU UAS\\TUBES_toserba\\transaksi.txt", ios::app); // continously
+        ofstream struk("struk.txt", ios::trunc); // overwrite
+        ofstream trx("transaksi.txt", ios::app); // continously
         unsigned int jumlah, pil, hTotal = 0, harga_jenis;
 
         char buff[DTTMSZ]; // buffer waktu
@@ -265,7 +265,7 @@ namespace Barang
                     {
                         cout << "Stok tidak tersedia atau mencukupi.\n";
                     }
-                    cout << "Transaksi(1/0) : ";
+                    cout << "Transaksi lagi?(1/0) : ";
                     cin >> pil;
                     if (pil == 1)
                     {

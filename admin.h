@@ -2,18 +2,19 @@ namespace Admin
 {
     char dbAdmin[30] = "admin.dat";
 
+    // input data ke variabel admin
     void input()
     {
         cout << "Nama : ";
         // cin.ignore();
         // getline(cin, uAdmin.nama);
-        cin >> uAdmin.nama;
+        cin.getline(uAdmin.nama, 255);
         cout << "No. Identitas : ";
         cin >> uAdmin.no_id;
         cout << "Alamat : ";
         // cin.ignore();
         // getline(cin, uAdmin.alamat);
-        cin >> uAdmin.alamat;
+        cin.getline(uAdmin.alamat, 255);
         cout << "Username : ";
         cin >> uAdmin.username;
         cout << "Password : ";
@@ -21,6 +22,7 @@ namespace Admin
         cout << "\n";
     }
 
+    // menambah data admin
     void create()
     {
         ofstream create;
@@ -31,6 +33,7 @@ namespace Admin
         create.close();
     }
 
+    // output data dari variabel admin
     void output()
     {
         cout << "|" << setw(25) << uAdmin.nama
@@ -39,6 +42,7 @@ namespace Admin
              << "|" << endl;
     }
 
+    // menampikan data admin
     void show()
     {
         ifstream show;
@@ -57,6 +61,7 @@ namespace Admin
         show.close();
     }
 
+    // menghapus data admin
     void destroy(int no_id_dihapus)
     {
         ifstream destroy;

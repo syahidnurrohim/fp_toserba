@@ -6,7 +6,6 @@
 #include <cstring>
 
 using namespace std;
-
 struct toko
 {
   int ID_barang, stock;
@@ -25,169 +24,208 @@ int main()
   int pil, pil2, pil3, status1, status2, status3, i;
   status1 = 0;
   while (status1 == 0)
-  { // menu awal
-    cout << "\nLogin Sebagai\n1.Admin\n2.Pegawai\n3.Register\n4.Batal\n";
-    cout << "Masukkan pilihan: ";
+  {
+    cout << "\n\t\tSelamat Datang di Aplikasi SIDIA ( Sistem Database Input Barang )\n"
+         << "1. Login\n"
+         << "2. Registrasi\n"
+         << "3. Exit\n"
+         << "Masukkan pilihan :  ";
     cin >> pil;
-    status2 = 1;
-    switch (Autentifikasi::login(pil))
+    switch (pil)
     {
     case 1:
-      cout << "\n\t\tTOKO SERBA ADA";
-      status2 = 0;
-      while (status2 == 0)
-      { // menu admin
-        cout << "\nADMIN\n1.Kelola Barang\n2.Kelola Admin\n3.Kelola Pegawai\n4.Logout\n";
-        cout << "Masukkan pilihan: ";
-        cin >> pil2;
-        switch (pil2)
+      cout << "\n\t\tLogin SIDIA\n"
+           << "1. Admin\n"
+           << "2. Pegawai\n"
+           << "3. Kembali\n";
+      cout << "Masukkan pilihan: ";
+      cin >> pil2;
+      // status2 = 1;
+      switch (Autentifikasi::login(pil2))
+      {
+      case 1: // menu admin
+        status2 = 0;
+        while (status2 == 0)
         {
-        case 1:
-          cout << "\nKELOLA BARANG\n1.Daftar Barang\n2.Tambah\n3.Perbarui\n4.Cari\n5.Hapus\n6.Kembali\n";
-          status3 = 0;
-          while (status3 == 0)
-          { // Kelola barang
-            cout << "Masukkan pilihan: ";
-            cin >> pil3;
-            switch (pil3)
-            {
-            case 1:
-              Barang::show();
-              break;
-            case 2:
-              cout << "Silahkan masukkan data barang.\n";
-              Barang::create();
-              break;
-            case 3:
-              cout << "Masukkan ID barang diperbarui: ";
-              cin >> i;
-              Barang::update(i);
-              break;
-            case 4:
-              cout << "Masukkan ID barang dicari: ";
-              cin >> i;
-              Barang::search(i);
-              break;
-            case 5:
-              cout << "Masukkan ID barang dihapus: ";
-              cin >> i;
-              Barang::destroy(i);
-              break;
-            case 6:
-              status3 = 1;
-              break;
-            default:
-              cout << "Input Anda salah.\n";
-              break;
-            }
-          }
-          break;
-        case 2:
-          cout << "\nKELOLA ADMIN\n1.Daftar Admin\n2.Tambah Admin\n3.Hapus Admin\n4.Kembali\n";
-          status3 = 0; // Kelola admin
-          while (status3 == 0)
+          cout << "\n\t\tAplikasi SIDIA";
+          cout << "\nMenu ADMIN\n"
+               << "1. Kelola barang\n"
+               << "2. Kelola Admin\n"
+               << "3. Kelola Pegawai\n"
+               << "4. Logout\n";
+          cout << "Masukkan pilihan : ";
+          cin >> pil3;
+          switch (pil3)
           {
-            cout << "Masukkan pilihan: ";
-            cin >> pil;
-            switch (pil)
+          case 1: // Kelola barang
+            status3 = 0;
+            while (status3 == 0)
             {
-            case 1:
-              Admin::show();
-              break;
-            case 2:
-              cout << "Silahkan masukkan data Admin.\n";
-              Admin::create();
-              break;
-            case 3:
-              cout << "Masukkan No. Identitas Admin dihapus: ";
-              cin >> i;
-              Admin::destroy(i);
-            case 4:
-              status3 = 1;
-              break;
-            default:
-              cout << "Input Anda salah.\n";
-              break;
+              cout << "\n\t\tAplikasi SIDIA";
+              cout << "\nMenu KELOLA BARANG"
+                   << "1. Daftar Barang\n"
+                   << "2. Tambah Barang\n"
+                   << "3. Edit Barang\n"
+                   << "4. Cari Barang\n"
+                   << "5. Sorting Barang\n"
+                   << "6. Hapus Data Barang\n"
+                   << "7. Kembali\n";
+              cout << "Masukkan pilihan: ";
+              cin >> pil3;
+              switch (pil3)
+              {
+              case 1:
+                Barang::show();
+                break;
+              case 2:
+                cout << "Silahkan masukkan data barang.\n";
+                Barang::create();
+                break;
+              case 3:
+                cout << "Masukkan ID barang diperbarui: ";
+                cin >> i;
+                Barang::update(i);
+                break;
+              case 4:
+                cout << "Masukkan ID barang dicari: ";
+                cin >> i;
+                Barang::search(i);
+                break;
+              case 5:
+
+                break;
+              case 6:
+                cout << "Masukkan ID barang dihapus: ";
+                cin >> i;
+                Barang::destroy(i);
+                break;
+              case 7:
+                status3 = 1;
+                break;
+              default:
+                cout << "Input Anda salah.\n";
+                break;
+              }
             }
-          }
-          break;
-        case 3:
-          cout << "\nKELOLA PEGAWAI\n1.Daftar Pegawai\n2.Tambah Pegawai\n3.Perbarui Data Pegawai\n4.Hapus Data Pegawai\n5.Kembali\n";
-          status3 = 0; // Kelola pegawai
-          while (status3 == 0)
-          {
-            cout << "\nMasukkan pilihan: ";
-            cin >> pil;
-            switch (pil)
+            break;
+          case 2: // Kelola admin
+            status3 = 0;
+            while (status3 == 0)
             {
-            case 1:
-              Pegawai::show();
-              break;
-            case 2:
-              cout << "Silahkan masukkan data Pegawai.\n";
-              Pegawai::create();
-              break;
-            case 3:
-              cout << "Masukkan No. Identitas Pegawai diperbarui: ";
-              cin >> i;
-              Pegawai::update(i);
-              break;
-            case 4:
-              cout << "Masukkan No. Identitas Pegawai dihapus: ";
-              cin >> i;
-              Pegawai::destroy(i);
-              break;
-            case 5:
-              status3 = 1;
-              break;
-            default:
-              cout << "Input Anda salah.\n";
-              break;
+              cout << "\nKELOLA ADMIN\n1.Daftar Admin\n2.Tambah Admin\n3.Hapus Admin\n4.Kembali\n";
+              cout << "Masukkan pilihan: ";
+              cin >> pil;
+              switch (pil)
+              {
+              case 1:
+                Admin::show();
+                break;
+              case 2:
+                cout << "Silahkan masukkan data Admin.\n";
+                Admin::create();
+                break;
+              case 3:
+                cout << "Masukkan No. Identitas Admin dihapus: ";
+                cin >> i;
+                Admin::destroy(i);
+                break;
+              case 4:
+                status3 = 1;
+                break;
+              default:
+                cout << "Input Anda salah.\n";
+                break;
+              }
             }
+            break;
+          case 3:
+            status3 = 0; // Kelola pegawai
+            while (status3 == 0)
+            {
+              cout << "\nKELOLA PEGAWAI\n1.Daftar Pegawai\n2.Tambah Pegawai\n3.Perbarui Data Pegawai\n4.Hapus Data Pegawai\n5.Kembali\n";
+              cout << "\nMasukkan pilihan: ";
+              cin >> pil;
+              switch (pil)
+              {
+              case 1:
+                Pegawai::show();
+                break;
+              case 2:
+                cout << "Silahkan masukkan data Pegawai.\n";
+                Pegawai::create();
+                break;
+              case 3:
+                cout << "Masukkan No. Identitas Pegawai diperbarui: ";
+                cin >> i;
+                Pegawai::update(i);
+                break;
+              case 4:
+                cout << "Masukkan No. Identitas Pegawai dihapus: ";
+                cin >> i;
+                Pegawai::destroy(i);
+                break;
+              case 5:
+                status3 = 1;
+                break;
+              default:
+                cout << "Input Anda salah.\n";
+                break;
+              }
+            }
+            break;
+          case 4:
+            cout << "Logging out\n";
+            status2 = 1;
+            break;
+          default:
+            cout << "\nInput Anda salah.";
+            break;
           }
-          break;
-        case 4:
-          cout << "Logging out\n";
-          status2 = 1;
-          break;
-        default:
-          cout << "\nInput Anda salah.";
-          break;
         }
+        break;
+      case 2: // menu pegawai
+        status2 = 0;
+        while (status2 == 0)
+        {
+          cout << "\t\tTOKO SERBA ADA\n";
+          cout << "PEGAWAI\n1.Daftar Barang\n2.Menjual\n3.Logout\n";
+          cout << "Masukkan pilihan: ";
+          cin >> pil;
+          switch (pil)
+          {
+          case 1:
+            Barang::show();
+            break;
+          case 2:
+            cout << "Masukkan ID barang dijual: ";
+            cin >> i;
+            Barang::sale(i);
+            break;
+          case 3:
+            cout << "Logging out\n";
+            status2 = 1;
+            break;
+          default:
+            cout << "Input Anda salah.\n";
+            break;
+          }
+        }
+        break;
+      case 3:
+        cout << "Keluar...\n";
+        status1 = 1;
+        break;
+      default:
+        cout << "\nInput Anda salah.\n";
+        break;
       }
       break;
     case 2:
-      cout << "\t\tTOKO SERBA ADA\n";
-      cout << "PEGAWAI\n1.Daftar Barang\n2.Menjual\n3.Logout\n";
-      status2 = 0;
-      while (status2 == 0)
-      {
-        cout << "Masukkan pilihan: ";
-        cin >> pil;
-        switch (pil)
-        {
-        case 1:
-          Barang::show();
-          break;
-        case 2:
-          Barang::sale(13);
-          break;
-        case 3:
-          cout << "Logging out\n";
-          status2 = 1;
-          break;
-        default:
-          cout << "Input Anda salah.\n";
-          break;
-        }
-      }
-      break;
-    case 3:
       Autentifikasi::registrasi();
       break;
-    case 4:
-      status1 = 1;
+    case 3:
       cout << "Keluar...\n";
+      status1 = 1;
       break;
     default:
       cout << "\nInput Anda salah.\n";
