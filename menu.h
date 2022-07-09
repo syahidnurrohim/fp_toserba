@@ -136,7 +136,7 @@ namespace Menu
       << "5. Sorting Barang\n"
       << "6. Hapus Data Barang\n"
       << "7. Kembali\n"
-      << "Masukkan pilihan: ";
+      << "Masukkan pilihan : ";
     cin >> pilihan;
     switch (pilihan)
     {
@@ -160,14 +160,14 @@ namespace Menu
       case 5:
         int order, col;
         cout << "Sorting barang berdasarkan: " << endl;
-        cout << "1. Nama" << endl;
-        cout << "2. Harga" << endl;
+        cout << "1. ID Barang" << endl;
+        cout << "2. Nama" << endl;
+        cout << "3. Harga" << endl;
+        cout << "4. Stock" << endl;
+        cout << "4. Kadaluwarsa" << endl;
+        cout << "Masukkan pilihan : ";
         cin >> col;
-        cout << endl;
-        cout << "Pilih Order Sorting : " << endl; 
-        cout << "1. Ascending" << endl;
-        cout << "2. Descending" << endl;
-        cin >> order;
+        Barang::sort(col, 1);
         break;
       case 6:
         cout << "Masukkan ID barang dihapus: ";

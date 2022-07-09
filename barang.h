@@ -11,6 +11,18 @@ namespace Barang
     return buff;
   }
 
+  struct Node
+  {
+    toko data;
+    Node *next;
+  };
+
+  Node *head;
+  Node *sorted;
+
+  void printNode(Node *head);
+  void insertSort(Node *newnode, int col, int order);
+
   char dbBarang[30] = "barang.dat";
 
   void input()
@@ -187,6 +199,96 @@ namespace Barang
     search.close();
   }
 
+  void sort(int col, int order)
+  {
+    ifstream show;
+    show.open(dbBarang, ios ::binary);
+    cout << "+-----+--------------------+------------+----------+--------------+\n";
+    cout << "|   ID"
+      << "|                Nama"
+      << "|       Harga"
+      << "|     Stock"
+      << "|   Kedaluwarsa|" << endl;
+    cout << "+-----+--------------------+------------+----------+--------------+\n";
+
+    head = new Node();
+    Node *first = head;
+    while (show.read((char *)&barang, sizeof(barang)))
+    {
+      first->data = barang;
+      first->next = new Node();
+      first = first->next;
+    }
+
+    Barang::sorted = NULL;
+    while (head != NULL) {
+      Node *next = head->next;
+      Barang::insertSort(head, col, order);
+      head = next;
+    }
+    head = Barang::sorted;
+
+    printNode(Barang::sorted);
+    cout << "+-----+--------------------+------------+----------+--------------+\n";
+    show.close();
+  }
+
+  void insertSort(Node *newnode, int col, int order)
+  {
+    bool rule1;
+
+    if (Barang::sorted != NULL) {
+      switch (col) {
+        case 1:
+          rule1 = Barang::sorted->data.ID_barang >= newnode->data.ID_barang;
+          break;
+        case 2:
+          rule1 = Barang::sorted->data.nama >= newnode->data.nama;
+          break;
+        case 3:
+          rule1 = Barang::sorted->data.harga >= newnode->data.harga;
+          break;
+        case 4:
+          rule1 = Barang::sorted->data.stock >= newnode->data.stock;
+          break;
+        case 5:
+          rule1 = Barang::sorted->data.tExpired >= newnode->data.tExpired;
+          break;
+      }
+    }
+
+    if (Barang::sorted == NULL || rule1) {
+      newnode->next = Barang::sorted;
+      sorted = newnode;
+    } else {
+      Node* current = Barang::sorted;
+      bool rule2;
+      switch (col) {
+        case 1:
+          rule2 = (current->next->data.ID_barang < newnode->data.ID_barang);
+          break;
+        case 2:
+          rule2 = current->next->data.nama < newnode->data.nama;
+          break;
+        case 3:
+          rule2 = current->next->data.harga < newnode->data.harga;
+          break;
+        case 4:
+          rule2 = current->next->data.stock < newnode->data.stock;
+          break;
+        case 5:
+          rule2 = current->next->data.tExpired < newnode->data.tExpired;
+          break;
+      }
+      while (current->next != NULL
+          && rule2) {
+        current = current->next;
+      }
+      newnode->next = current->next;
+      current->next = newnode;
+    }
+  }
+
   void sale(int ID_barang_dijual)
   {
     fstream sale; // baca/tulis file langsung
@@ -291,5 +393,18 @@ namespace Barang
     struk.close();
     trx.close();
     sale.close();
+  }
+
+  void printNode(Node *head)
+  {
+    while (head != NULL) {
+      toko barang = head->data;
+      cout << "|" << setw(5) << barang.ID_barang
+        << "|" << setw(20) << barang.nama
+        << "|" << setw(12) << barang.harga
+        << "|" << setw(10) << barang.stock
+        << "|" << setw(14) << barang.tExpired << "|" << endl;
+      head = head->next;
+    }
   }
 }
