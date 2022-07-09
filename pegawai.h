@@ -5,14 +5,12 @@ namespace Pegawai
     void input()
     {
         cout << "Nama : ";
-        // cin.ignore();
-        // getline(cin, uPegawai.nama);
+        cin.ignore();
         cin.getline(uPegawai.nama, 255);
         cout << "No. Identitas : ";
         cin >> uPegawai.no_id;
         cout << "Alamat : ";
-        // cin.ignore();
-        // getline(cin, uPegawai.alamat);
+        cin.ignore();
         cin.getline(uPegawai.alamat, 255);
         cout << "username : ";
         cin >> uPegawai.username;

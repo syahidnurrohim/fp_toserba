@@ -6,13 +6,13 @@ namespace Admin
     void input()
     {
         cout << "Nama : ";
-        // cin.ignore();
+        cin.ignore();
         // getline(cin, uAdmin.nama);
         cin.getline(uAdmin.nama, 255);
         cout << "No. Identitas : ";
         cin >> uAdmin.no_id;
         cout << "Alamat : ";
-        // cin.ignore();
+        cin.ignore();
         // getline(cin, uAdmin.alamat);
         cin.getline(uAdmin.alamat, 255);
         cout << "Username : ";
