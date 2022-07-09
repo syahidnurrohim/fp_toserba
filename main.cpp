@@ -17,7 +17,7 @@ struct toko
 #include "Barang.h"
 #include "Admin.h"
 #include "Pegawai.h"
-#include "Autentifikasi.h"
+#include "Auth.h"
 #include "Menu.h"
 
 int main()
