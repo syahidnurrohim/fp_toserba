@@ -368,14 +368,14 @@ namespace Barang
           {
             cout << "Stok tidak tersedia atau mencukupi.\n";
           }
-          cout << "Transaksi lagi?(1/0) : ";
+          cout << "Transaksi lagi? (1/0) : ";
           cin >> pil;
-          if (pil == 1)
+          if (pil == 0)
           {
             cout << "\nMencetak struk...\n";
             tambah = false;
           }
-          else if (pil == 0)
+          else if (pil == 1)
           {
             tambah = true;
           }
