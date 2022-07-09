@@ -218,6 +218,7 @@ namespace Barang
       first->data = barang;
       first->next = new Node();
       first = first->next;
+      first->data.ID_barang = -1;
     }
 
     Barang::sorted = NULL;
@@ -399,6 +400,10 @@ namespace Barang
   {
     while (head != NULL) {
       toko barang = head->data;
+      if (barang.ID_barang == -1) {
+        head = head->next;
+        continue;
+      }
       cout << "|" << setw(5) << barang.ID_barang
         << "|" << setw(20) << barang.nama
         << "|" << setw(12) << barang.harga
